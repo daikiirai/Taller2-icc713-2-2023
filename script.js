@@ -42,18 +42,12 @@ function recommendGamesForConsole(consoleName) {
 
 // Recomendar 3 juegos para un género específico independientemente de la consola
 function recommendGamesByGenre(genre, amount, consoleOptional) {
-  const games = [];
   const consoleGames = consoleOptional
     ? getAllGames(videoGames, consoleOptional)
-    : getAllGames(videoGames);
+    : getAllGames(videoGames, null, genre);
   if (consoleGames) {
     const text = consoleOptional ? " en " + consoleOptional : "";
-    consoleGames.forEach((game) => {
-      if (game.genres.includes(genre)) {
-        games.push(game);
-      }
-    });
-    const randomGames = getRandomGames(games, amount);
+    const randomGames = getRandomGames(consoleGames, amount);
     if (randomGames.length > 0) {
       console.log("Recomendaciones para el género " + genre + text + ":");
       displayGames(randomGames);
